@@ -7,6 +7,8 @@
 > An React and React native application made for connect people to recyclable collect points.
 
 ![License](https://img.shields.io/github/license/caio546/nlw-booster-01) ![AUR](https://img.shields.io/badge/-Web-%231a1a1a) ![AUR](https://img.shields.io/badge/-Mobile-%23301934)
+
+
 ***WEB***
 <p align="center">
   <img width="460" height="300" src="img/webfront.png">
