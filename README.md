@@ -14,7 +14,7 @@
 
 ***MOBILE***
 <p align="center">
-  <img width="460" height="300" src="img/mobile.png">
+  <img width="170" src="img/mobile.png">
 </p>
 
 
