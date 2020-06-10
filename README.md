@@ -14,7 +14,7 @@
 
 ***MOBILE***
 <p align="center">
-  <img width="460" height="300" src="img/webfront.png">
+  <img width="460" height="300" src="img/mobile.png">
 </p>
 
 
@@ -52,7 +52,7 @@ This applications was built with the following technologies.
 
 ### Step 2
 
-- **HACK AWAY!** 🔨🔨🔨
+- **Make your changes!** 🔨🔨🔨
 
 ### Step 3
 
