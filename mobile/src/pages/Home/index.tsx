@@ -37,7 +37,7 @@ const Home = () => {
       .then(response => {
         const ufInitials = response.data.map(uf => uf.sigla);
         setUfs(ufInitials);
-      });
+      }).catch((error) => console.log(error.response));
   }, []);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Home = () => {
         imageStyle={{width: 274, height: 268}}
       >
         <View style={styles.main}>
-          <Image source={require('../../assets/logo.png')}/>
+          <Image source={require('../../assets/logo2.png')}/>
           <View>
             <Text style={styles.title}>Seu marketplace de coleta de resíduos.</Text>
             <Text style={styles.description}>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</Text>

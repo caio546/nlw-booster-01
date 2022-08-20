@@ -13,10 +13,26 @@
   align-items: center;
 }
 
+#page-create-point header img {
+  margin-bottom: 16px;
+}
+
 #page-create-point header a {
   color: var(--title-color);
   font-weight: bold;
   text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-create-point header button {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
 
   display: flex;
   align-items: center;
@@ -81,6 +97,7 @@
 
 #page-create-point form .field input[type=text],
 #page-create-point form .field input[type=email],
+#page-create-point form .field input[type=password],
 #page-create-point form .field input[type=number] {
   flex: 1;
   background: #F0F0F5;

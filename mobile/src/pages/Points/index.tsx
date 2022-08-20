@@ -2,17 +2,10 @@ import React, {useState, useEffect} from 'react';
 import Constants from 'expo-constants';
 import {Feather as Icon} from '@expo/vector-icons';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {View, Alert, Image, StyleSheet, TouchableOpacity, Text, ScrollView} from 'react-native';
+import {View, Alert, Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import {SvgUri} from 'react-native-svg';
 import * as Location from 'expo-location';
 import api from '../../services/api';
-
-interface Item {
-  id: number;
-  title: string;
-  image_url: string;
-}
 
 interface Point {
   id: number;
@@ -29,9 +22,7 @@ interface Params {
 }
 
 const Points = () => {
-  const [items, setItems] = useState<Item[]>([]);
   const [points, setPoints] = useState<Point[]>([]);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
 
@@ -60,36 +51,19 @@ const Points = () => {
   }, []);
 
   useEffect(() => {
-    api.get('items').then(response => {
-      setItems(response.data);
-    });
-  }, []);
-
-  useEffect(() => {
     api.get('points', {
       params: {
         city: routeParams.selectedCity,
         uf: routeParams.selectedUf,
-        items: selectedItems
       }
     }).then(response => {
+      console.log(response.data);
+
       setPoints(
         response.data
       );
-    })
-  }, [selectedItems]);
-
-  function handleSelectItem(id: number) {
-    const alreadySelected = selectedItems.findIndex(item => item === id);
-
-    if(alreadySelected >= 0) {
-      const filteredItems = selectedItems.filter(item => item !== id);
-
-      setSelectedItems(filteredItems);
-    } else {
-      setSelectedItems([...selectedItems, id]);
-    }
-  }
+    });
+  }, []);
 
   function handleNavigateBack() {
     navigation.goBack();
@@ -139,30 +113,6 @@ const Points = () => {
           </MapView>
           )}
         </View>
-      </View>
-      <View style={styles.itemsContainer}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingHorizontal: 20}}
-        >
-          {items.map(item => {
-            return (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                key={String(item.id)}
-                style={[
-                  styles.item,
-                  selectedItems.includes(item.id) ? styles.selectedItem : {},
-                ]}
-                onPress={() => handleSelectItem(item.id)}
-              >
-                <SvgUri width={42} height={42} uri={item.image_url} />
-                <Text style={styles.itemTitle}>{item.title}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
       </View>
     </>
   );

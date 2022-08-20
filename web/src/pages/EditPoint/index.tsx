@@ -1,9 +1,9 @@
 import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {FiArrowLeft} from 'react-icons/fi';
-import {Map, TileLayer, Marker} from 'react-leaflet';
 import axios from 'axios';
 import {LeafletMouseEvent} from 'leaflet';
+import {Map, TileLayer, Marker} from 'react-leaflet';
+import {FiArrowLeft} from 'react-icons/fi';
 import api from '../../services/api';
 
 import Dropzone from '../../components/Dropzone';
@@ -11,6 +11,27 @@ import Dropzone from '../../components/Dropzone';
 import './styles.css';
 
 import logo from '../../assets/logo2.svg';
+
+interface Point {
+  id: number;
+  city: string,
+  uf: string,
+  image_url: string,
+  name: string,
+  email: string,
+  offer: string,
+  whatsapp: string,
+  latitude: number,
+  longitude: number,
+}
+
+interface Location {
+  location: {
+    state: {
+      point: Point;
+    };
+  };
+}
 
 interface IBGEUFResponse {
   sigla: string,
@@ -20,11 +41,12 @@ interface IBGECityResponse {
   nome: string,
 }
 
-const CreatePoint = () => {
+const EditPoint = ({location}: Location) => {
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
+  const [point, setPoint] = useState<Point>(location.state.point);
 
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([point.latitude, point.longitude]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -33,20 +55,12 @@ const CreatePoint = () => {
     offer: '',
   });
 
-  const [selectedUf, setSelectedUf] = useState('0');
-  const [selectedCity, setSelectedCity] = useState('0');
+  const [selectedUf, setSelectedUf] = useState(point.uf);
+  const [selectedCity, setSelectedCity] = useState(point.city);
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const history = useHistory();
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const {latitude, longitude} = position.coords;
-
-      setInitialPosition([latitude, longitude]);
-    });
-  }, []);
 
   useEffect(() => {
     axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
@@ -125,9 +139,9 @@ const CreatePoint = () => {
       data.append('image', selectedFile);
     }
 
-    await api.post('points', data);
+    await api.patch(`/points/${point.id}`, data);
 
-    alert('Ponto de coleta criado!');
+    alert('Ponto de coleta atualizado!');
 
     history.push('/');
   }
@@ -156,9 +170,9 @@ const CreatePoint = () => {
       </header>
 
       <form onSubmit={handleSubmit}>
-        <h1>Cadastro do <br /> ponto de coleta</h1>
+        <h1>Edição do <br /> ponto de coleta</h1>
         
-        <Dropzone onFileUploaded={setSelectedFile} />
+        <Dropzone onFileUploaded={setSelectedFile}  />
 
         <fieldset>
           <legend>
@@ -172,6 +186,7 @@ const CreatePoint = () => {
               name="name"
               id="name"
               onChange={handleInputChange}
+              defaultValue={point.name}
             />
           </div>
 
@@ -182,6 +197,7 @@ const CreatePoint = () => {
               name="offer"
               id="offer"
               onChange={handleInputChange}
+              defaultValue={point.offer}
             />
           </div>
 
@@ -193,6 +209,7 @@ const CreatePoint = () => {
                 name="email"
                 id="email"
                 onChange={handleInputChange}
+                defaultValue={point.email}
               />
             </div>
             <div className="field">
@@ -202,6 +219,7 @@ const CreatePoint = () => {
                 name="whatsapp"
                 id="whatsapp"
                 onChange={handleInputChange}
+                defaultValue={point.whatsapp}
               />
              </div>
           </div>
@@ -253,11 +271,11 @@ const CreatePoint = () => {
           </div>
         </fieldset>
         <button type="submit">
-          Cadastrar ponto de coleta
+          Atualizar ponto de coleta
         </button>
       </form>
     </div>
   );
 }
 
-export default CreatePoint;
+export default EditPoint;

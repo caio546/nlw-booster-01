@@ -20,10 +20,8 @@ interface Data {
     whatsapp: string;
     city: string;
     uf: string;
+    offer: string;
   },
-  items: {
-    title: string;
-  }[],
 }
 
 const Detail = () => {
@@ -67,16 +65,20 @@ const Detail = () => {
             <Icon name="arrow-left" size={20} color="#34cb79"/>
           </TouchableOpacity>
 
-        <Image style={styles.pointImage} source={{uri: data.point.image_url }} />
+        {data && data.point && data.point.image_url &&
+          <Image style={styles.pointImage} source={{uri: data.point.image_url }} />
+        }
 
         <Text style={styles.pointName}>{data.point.name}</Text>
-        <Text style={styles.pointItems}>
-          {data.items.map(item => item.title).join(', ')}
-        </Text>
 
         <View style={styles.address}>
           <Text style={styles.addressTitle}>Endereço</Text>
           <Text style={styles.addressContent}>{data.point.city}, {data.point.uf}</Text>
+        </View>
+
+        <View style={styles.address}>
+          <Text style={styles.addressTitle}>Proposta</Text>
+          <Text style={styles.addressContent}>{data.point.offer}</Text>
         </View>
       </View>
 

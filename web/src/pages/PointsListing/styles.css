@@ -1,0 +1,101 @@
+#page-points {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+}
+
+#page-points header {
+  margin-top: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#page-points header a {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-points header img {
+  margin-bottom: 16px;
+}
+
+#page-points header button {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-points header a svg {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+#page-points main {
+  margin: 80px auto;
+  padding: 64px;
+  max-width: 730px;
+  background: #FFF;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#page-points main section {
+  display: flex;
+  flex-direction: row;
+  border: 5px solid #34CB79;
+  border-radius: 10px;
+}
+
+#page-points main section div {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  margin-left: 16px;
+}
+
+#page-points main section button {
+  width: 130px;
+  height: 56px;
+  background: red;
+  border-radius: 8px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 16px;
+  border: 0;
+  align-self: flex-end;
+  margin-top: 40px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+#page-points main section a {
+  width: 260px;
+  height: 90px;
+  background: orange;
+  border-radius: 8px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 16px;
+  border: 0;
+  align-self: flex-end;
+  margin-top: 40px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 8px;
+  margin-left: 32px;
+}
